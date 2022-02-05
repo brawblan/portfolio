@@ -23,5 +23,12 @@ app.get('/medium', (req, res) => {
     })
 })
 
-const PORT = process.env.PORT || 3000
+const PORT = 4000
+console.log(PORT)
 app.listen(PORT, () => console.log(`listening on ${PORT}`))
+
+// Websites I used to get this running
+// https://www.npmjs.com/package/rss-parser
+// https://javascript.plainenglish.io/a-medium-slice-430c413adfb9
+// https://stackoverflow.com/questions/68163385/parsing-error-cannot-find-module-next-babel
+// https://www.twilio.com/blog/node-js-proxy-server

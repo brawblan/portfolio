@@ -1,14 +1,15 @@
-export class BlogPost { 
+export class BlogPost {
   constructor(
-    public author?: string,
-    public categories?: [any],
-    public content?: string,
-    public description?: string,
-    public enclosure?: object,
-    public guid?: string,
-    public link?: string,
-    public pubDate?: string,
-    public thumbnail?: string,
-    public title?: string,
-  ) {}
+    public categories: Array<string>,
+    public contentEncoded: string,
+    public contentEncodedSnippet: string,
+    public creator: string,
+    public dcCreator: string,
+    public description: string,
+    public guid: string,
+    public isoDate: string,
+    public link: string,
+    public pubDate: string,
+    public title: string,
+  ) { }
 }
