@@ -71,7 +71,6 @@ const Blogs = () => {
 
   const fetchBlogData = useCallback(async () => {
     const fetchData = await BlogPostService.getMediumBlogs()
-    console.log(fetchData)
     setBlogs(fetchData)
   }, [])
 

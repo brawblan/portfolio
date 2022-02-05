@@ -21,10 +21,12 @@ export class BlogPostService {
   }
 
   static getMediumBlogs = async () => {
-    const url = 'https://cors-anywhere.herokuapp.com/https://brandonblankenstein.medium.com/feed/'
+    const url = 'http://192.168.0.57:4000/medium'
 
     try {
       let feed = await parser.parseURL(url)
+      console.log(feed)
+
       return feed.items.map((post: IBlogDto) => BlogPostService.BlogPostFromDto(post))
     } catch (error) {
       console.error(error)
