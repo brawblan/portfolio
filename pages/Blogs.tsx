@@ -86,7 +86,7 @@ const Blogs = () => {
     >
 
       {/* main heading/latest article */}
-      <Heading as="h1">Stories by Chakra Templates</Heading>
+      <Heading as="h1">Articles by Brandon</Heading>
       <Box
         marginTop={{ base: '1', sm: '5' }}
         display="flex"
