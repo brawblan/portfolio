@@ -28,7 +28,7 @@ app.get('/medium', (req: any, res: { status: (arg0: number) => { (): any; new():
       if (error || response.statusCode !== 200) {
         return res.status(500).json({
           type: 'error', message:
-            err.message
+            error.message
         })
       }
 
