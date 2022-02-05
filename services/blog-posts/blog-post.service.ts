@@ -1,9 +1,10 @@
-import axios from 'axios';
-import { IBlogDto } from './blog-post-dto.interface';
-import { BlogPost } from './blog-post.class';
+import { IBlogDto } from './blog-post-dto.interface'
+import { BlogPost } from './blog-post.class'
+let Parser = require('rss-parser')
+let parser = new Parser()
 
 export class BlogPostService {
-  static BlogPostFromDto = (dto: IBlogDto | undefined) => {  
+  static BlogPostFromDto = (dto: IBlogDto | undefined) => {
     return new BlogPost(
       dto?.author,
       dto?.categories,
@@ -19,12 +20,13 @@ export class BlogPostService {
   }
 
   static getMediumBlogs = async () => {
-    const url = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fbrandonblankenstein.medium.com%2Ffeed'
-    try { 
-      const response = await axios.get(url)
-      const blogs = response.data.items as Array<IBlogDto>      
-      
-      return blogs.map((blog) => BlogPostService.BlogPostFromDto(blog)) as Array<BlogPost>
+    const url = 'https://blankenstein.dev/https://brandonblankenstein.medium.com/feed/'
+
+    try {
+      let feed = await parser.parseURL(url)
+      console.log(feed)
+
+      return feed
     } catch (error) {
       console.error(error)
     }
@@ -32,7 +34,8 @@ export class BlogPostService {
 }
 
 // set blogs on load
-const blogs = BlogPostService.getMediumBlogs()
-console.log(typeof blogs, 'blogs');
+// const blogs = BlogPostService.getMediumBlogs()
+// console.log(blogs)
+
 
 

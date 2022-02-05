@@ -39,8 +39,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* React, Vue, NextJS, GitHub, Typescript */}
-
       <Container maxW={'3xl'}>
         <Stack
           as={Box}
