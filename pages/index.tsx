@@ -19,23 +19,23 @@ const Home = () => {
       </Head>
 
       <div className={style.iconContainer}>
+        <div className={style.x3}>
+          <SiJavascript fill={'#ECC94B'} className={style.y3} />
+        </div>
+        <div className={style.x6}>
+          <FaNodeJs fill={'#2F855A'} className={style.y6} />
+        </div>
+        <div className={style.x5}>
+          <SiTypescript fill={'#3182ce'} className={style.y5} />
+        </div>
+        <div className={style.x4}>
+          <FaReact fill={'#4299e1'} className={style.y4} />
+        </div>
         <div className={style.x1}>
           <SiNextdotjs fill={'black'} className={style.y1} />
         </div>
         <div className={style.x2}>
           <IoLogoVue fill={'#48BB78'} className={style.y2} />
-        </div>
-        <div className={style.x3}>
-          <SiJavascript fill={'#ECC94B'} className={style.y3} />
-        </div>
-        <div className={style.x4}>
-          <FaReact fill={'#4299e1'} className={style.y4} />
-        </div>
-        <div className={style.x5}>
-          <SiTypescript fill={'#3182ce'} className={style.y5} />
-        </div>
-        <div className={style.x6}>
-          <FaNodeJs fill={'#2F855A'} className={style.y6} />
         </div>
       </div>
 
@@ -45,6 +45,8 @@ const Home = () => {
           textAlign={'center'}
           spacing={{ base: 8, md: 14 }}
           py={{ base: 20, md: 36 }}
+          bg={'gray.700'}
+          opacity={0.9}
         >
           <Flex
             direction={'column'}

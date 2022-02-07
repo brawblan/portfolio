@@ -1,7 +1,6 @@
+import axios from 'axios'
 import { IBlogDto } from './blog-post-dto.interface'
 import { BlogPost } from './blog-post.class'
-let Parser = require('rss-parser')
-let parser = new Parser()
 
 export class BlogPostService {
   static BlogPostFromDto = (dto: IBlogDto): BlogPost => {
@@ -21,13 +20,12 @@ export class BlogPostService {
   }
 
   static getMediumBlogs = async () => {
-    const url = 'http://192.168.0.57:4000/medium'
+    const url = 'http://192.168.0.57/medium'
 
     try {
-      let feed = await parser.parseURL(url)
-      console.log(feed)
+      let feed = await (await axios.get(url)).data.items
 
-      return feed.items.map((post: IBlogDto) => BlogPostService.BlogPostFromDto(post))
+      return feed.map((post: IBlogDto) => BlogPostService.BlogPostFromDto(post))
     } catch (error) {
       console.error(error)
     }
