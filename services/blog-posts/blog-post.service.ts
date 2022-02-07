@@ -20,7 +20,7 @@ export class BlogPostService {
   }
 
   static getMediumBlogs = async () => {
-    const url = 'https://192.168.0.57/medium'
+    const url = 'http://192.168.0.57/medium'
 
     try {
       let feed = await (await axios.get(url)).data.items
