@@ -1,13 +1,12 @@
 export interface IBlogDto {
-  categories: Array<string>
-  ['content:encoded']: string
-  ['content:encodedSnippet']: string
   creator: string
-  dc_creator: string
-  description: string
-  guid: string
-  isoDate: string
+  title: string
   link: string
   pubDate: string
-  title: string
+  ['content:encoded']: string
+  ['content:encodedSnippet']: string
+  ['dc:creator']: string
+  guid: string
+  categories: Array<string>
+  isoDate: string
 }

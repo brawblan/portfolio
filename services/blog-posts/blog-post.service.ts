@@ -5,17 +5,16 @@ import { BlogPost } from './blog-post.class'
 export class BlogPostService {
   static BlogPostFromDto = (dto: IBlogDto): BlogPost => {
     return new BlogPost(
-      dto.categories,
-      dto?.['content:encoded'],
-      dto?.['content:encodedSnippet'],
       dto.creator,
-      dto.dc_creator,
-      dto.description,
-      dto.guid,
-      dto.isoDate,
+      dto.title,
       dto.link,
       dto.pubDate,
-      dto.title,
+      dto?.['content:encoded'],
+      dto?.['content:encodedSnippet'],
+      dto?.['dc:creator'],
+      dto.guid,
+      dto.categories,
+      dto.isoDate,
     )
   }
 
@@ -31,3 +30,20 @@ export class BlogPostService {
     }
   }
 }
+
+// TODO: once I can get the servers playing nice OR create my own database I'll need this
+
+// website used to get promise returning correctly to be used as an array
+// https://devtrium.com/posts/async-functions-useeffect 
+
+// const [blogs, setBlogs] = useState<Array<BlogPost>>([])
+
+  // const fetchBlogData = useCallback(async () => {
+  //   const fetchData = await BlogPostService.getMediumBlogs()
+  //   setBlogs(fetchData)
+  // }, [])
+
+  // useEffect(() => {
+  //   fetchBlogData()
+
+  // }, [fetchBlogData])

@@ -1,5 +1,16 @@
+:root {
+  --slider-width: 80vw;
+  --fun-skills-width: 40vw;
+  --slider-height: 15vh;
+  --slider-elms-displayed: 6;
+  --slider-elms: 10;
+  --slider-elm-width: calc(var(--slider-width) / var(--slider-elms-displayed));
+  --fun-skill-elm-width: calc(var(--fun-skills-width) / var(--slider-elms-displayed));
+  --slider-duration-animation: calc(var(--slider-elms) * 3s);
+}
+
 html,
-body {
+body { 
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -13,4 +24,17 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --slider-width: 100%;
+    --slider-elms-displayed: 3;
+  }
+}
+
+@media (max-width: 450px) {
+  :root {
+    --slider-elms-displayed: 2;
+  }
 }

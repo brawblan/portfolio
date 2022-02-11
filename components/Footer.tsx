@@ -77,15 +77,13 @@ export const Footer = () => {
           py={4}
           direction={{ base: 'column', md: 'row' }}
           spacing={4}
-          justify={{ base: 'center', md: 'space-between' }}
-          align={{ base: 'center', md: 'center' }}>
-          <Text>© 2020 Chakra Templates. All rights reserved</Text>
-          <Stack direction={'row'} spacing={6}>
-            {Links.map((link) => (
-              <NavLink key={link.title} {...link}></NavLink>
-            ))}
-          </Stack>
-          <Stack direction={'row'} spacing={6}>
+          justify={{ base: 'center' }}
+          align={{ base: 'center', md: 'center' }}
+        >
+          <Text>Brandon Blankenstein: Web Developer</Text>
+          <Stack
+            direction={'row'}
+          >
             <SocialButton label={'GitHub'} href={'https://github.com/brawblan'}>
               <FaGithub />
             </SocialButton>

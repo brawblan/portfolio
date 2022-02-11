@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import { BlogPostService } from '../services/blog-posts/blog-post.service'
 import {
   Box,
@@ -15,35 +15,13 @@ import {
   useColorModeValue,
   Container,
   VStack,
+  Flex,
+  Grid,
 } from '@chakra-ui/react'
 import { createIdFromGuid } from '../global/helpers'
-import { BlogPost } from '../services/blog-posts/blog-post.class'
-
-interface IBlogTags {
-  tags: Array<string>
-  my?: SpaceProps['my']
-}
-
-const BlogTags: React.FC<IBlogTags> = (props) => {
-  return (
-    <HStack
-      spacing={2}
-      my={props.my}
-    >      {props.tags.map((tag, index) => {
-      return (
-        <Tag
-          size={'md'}
-          variant="solid"
-          colorScheme="orange"
-          key={tag + index}
-        >
-          {tag}
-        </Tag>
-      )
-    })}
-    </HStack>
-  )
-}
+import blogPosts from './api/medium-blogs'
+import { IBlogDto } from '../services/blog-posts/blog-post-dto.interface'
+import BlogCard from '../components/BlogCard'
 
 interface BlogAuthorProps {
   date: Date
@@ -67,192 +45,27 @@ export const BlogAuthor: React.FC<BlogAuthorProps> = (props) => {
 }
 
 const Blogs = () => {
-  const [blogs, setBlogs] = useState<Array<BlogPost>>([])
-
-  const fetchBlogData = useCallback(async () => {
-    const fetchData = await BlogPostService.getMediumBlogs()
-    setBlogs(fetchData)
-  }, [])
-
-  useEffect(() => {
-    fetchBlogData()
-
-  }, [fetchBlogData])
+  const blogs = blogPosts.items.map((post: IBlogDto) => BlogPostService.BlogPostFromDto(post))
 
   return (
     <Container
       maxW={'7xl'}
       p="12"
     >
-
-      {/* main heading/latest article */}
-      <Heading as="h1">Articles by Brandon</Heading>
-      <Box
-        marginTop={{ base: '1', sm: '5' }}
-        display="flex"
-        flexDirection={{ base: 'column', sm: 'row' }}
-        justifyContent="space-between">
-        <Box
-          display="flex"
-          flex="1"
-          marginRight="3"
-          position="relative"
-          alignItems="center">
-          <Box
-            width={{ base: '100%', sm: '85%' }}
-            zIndex="2"
-            marginLeft={{ base: '0', sm: '5%' }}
-            marginTop="5%">
-            <Link textDecoration="none" _hover={{ textDecoration: 'none' }}>
-              <Image
-                borderRadius="lg"
-                src={
-                  'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80'
-                }
-                alt="some good alt text"
-                objectFit="contain"
-              />
-            </Link>
-          </Box>
-          <Box zIndex="1" width="100%" position="absolute" height="100%">
-            <Box
-              bgGradient={useColorModeValue(
-                'radial(orange.600 1px, transparent 1px)',
-                'radial(orange.300 1px, transparent 1px)'
-              )}
-              backgroundSize="20px 20px"
-              opacity="0.4"
-              height="100%"
-            />
-          </Box>
-        </Box>
-        <Box
-          display="flex"
-          flex="1"
-          flexDirection="column"
-          justifyContent="center"
-          marginTop={{ base: '3', sm: '0' }}>
-          <BlogTags tags={['Engineering', 'Product']} />
-          <Heading marginTop="1">
-            <Link textDecoration="none" _hover={{ textDecoration: 'none' }}>
-              Blog article title
-            </Link>
-          </Heading>
-          <Text
-            as="p"
-            marginTop="2"
-            color={useColorModeValue('gray.700', 'gray.200')}
-            fontSize="lg">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
-          </Text>
-          <BlogAuthor name="John Doe" date={new Date('2021-04-06T19:01:27Z')} />
-        </Box>
-      </Box>
-
-      {/* article list */}
-      <Heading as="h2" marginTop="5">
-        Latest articles
+      <Heading as="h1">
+        {blogPosts.title}
       </Heading>
       <Divider marginTop="5" />
-      {blogs.map(({ categories, contentEncoded, contentEncodedSnippet, creator, dcCreator, description, guid, isoDate, link, pubDate, title }) => (
-        <Wrap
-          key={createIdFromGuid(guid ?? '')}
-          spacing="30px"
-          marginTop="5"
-          w={'50vw'}
-        >
-          <WrapItem
-            bg={'gray.700'}
-            borderRadius="lg"
-            px={4}
-            py={2}
-          >
-            <Box w="100%">
-              <Box
-                borderRadius="lg"
-                overflow="hidden"
-              >
-                {/* <Link textDecoration="none" _hover={{ textDecoration: 'none' }}>
-                  <Image
-                    transform="scale(1.0)"
-                    src={thumbnail}
-                    alt="some text"
-                    objectFit="contain"
-                    width="100%"
-                    transition="0.3s ease-in-out"
-                    _hover={{
-                      transform: 'scale(1.05)',
-                    }}
-                  />
-                </Link> */}
-              </Box>
-              <Heading fontSize="xl" marginTop="2">
-                <Link
-                  textDecoration="none" _hover={{ textDecoration: 'none' }}
-                  href={`/`}
-                >
-                  {title}
-                </Link>
-              </Heading>
-              <Text
-                as="p"
-                fontSize="md"
-                marginTop="2"
-                dangerouslySetInnerHTML={{ __html: contentEncoded }}
-                w={'50%'}
-                noOfLines={3}
-              />
-              <BlogTags
-                key={createIdFromGuid(guid ?? '')}
-                tags={categories ?? []}
-                my={3}
-              />
-              <Text>published - {new Date(pubDate).toLocaleDateString()}</Text>
-            </Box>
-          </WrapItem>
-        </Wrap>
-      ))}
-
-      {/* article at bottom */}
-      <VStack
-        paddingTop="40px"
-        spacing="2"
-        alignItems="flex-start"
+      <Flex
+        wrap={'wrap'}
+        justify={'space-between'}
       >
-        <Heading as="h2">What we write about</Heading>
-        <Text as="p" fontSize="lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-          condimentum quam arcu, eu tempus tortor molestie at. Vestibulum
-          pretium condimentum dignissim. Vestibulum ultrices vitae nisi sed
-          imperdiet. Mauris quis erat consequat, commodo massa quis, feugiat
-          sapien. Suspendisse placerat vulputate posuere. Curabitur neque
-          tortor, mattis nec lacus non, placerat congue elit.
-        </Text>
-        <Text as="p" fontSize="lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-          condimentum quam arcu, eu tempus tortor molestie at. Vestibulum
-          pretium condimentum dignissim. Vestibulum ultrices vitae nisi sed
-          imperdiet. Mauris quis erat consequat, commodo massa quis, feugiat
-          sapien. Suspendisse placerat vulputate posuere. Curabitur neque
-          tortor, mattis nec lacus non, placerat congue elit.
-        </Text>
-        <Text as="p" fontSize="lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-          condimentum quam arcu, eu tempus tortor molestie at. Vestibulum
-          pretium condimentum dignissim. Vestibulum ultrices vitae nisi sed
-          imperdiet. Mauris quis erat consequat, commodo massa quis, feugiat
-          sapien. Suspendisse placerat vulputate posuere. Curabitur neque
-          tortor, mattis nec lacus non, placerat congue elit.
-        </Text>
-      </VStack>
+        {blogs.map((blog) => (
+          <BlogCard blog={blog} />
+        ))}
+      </Flex>
     </Container>
   )
 }
 
 export default Blogs
-
-// website used to get promise returning correctly to be used as an array
-// https://devtrium.com/posts/async-functions-useeffect
