@@ -3,9 +3,6 @@ import {
   Center,
   Text,
   Stack,
-  List,
-  ListItem,
-  ListIcon,
   Button,
   useColorModeValue,
   LinkBox,
@@ -22,6 +19,7 @@ const ProjectCard = (project: { project: ProjectClass }) => {
     <Center
       py={6}
       minW={'300px'}
+      w={'330px'}
       h={'full'}
     >
       <Box

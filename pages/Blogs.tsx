@@ -1,27 +1,25 @@
 import React from 'react'
 import { BlogPostService } from '../services/blog-posts/blog-post.service'
 import {
-  Box,
-  Heading,
-  Link,
   Image,
   Text,
   Divider,
   HStack,
-  Tag,
-  Wrap,
-  WrapItem,
-  SpaceProps,
-  useColorModeValue,
   Container,
+  Box,
   VStack,
+  chakra,
+  LinkBox,
+  Button,
+  LinkOverlay,
+  Center,
   Flex,
-  Grid,
 } from '@chakra-ui/react'
-import { createIdFromGuid } from '../global/helpers'
 import blogPosts from './api/medium-blogs'
 import { IBlogDto } from '../services/blog-posts/blog-post-dto.interface'
 import BlogCard from '../components/BlogCard'
+import { FaMedium } from 'react-icons/fa'
+import { AiFillMediumCircle } from 'react-icons/ai'
 
 interface BlogAuthorProps {
   date: Date
@@ -48,23 +46,63 @@ const Blogs = () => {
   const blogs = blogPosts.items.map((post: IBlogDto) => BlogPostService.BlogPostFromDto(post))
 
   return (
-    <Container
+    <Box
+      as={Container}
       maxW={'7xl'}
       p="12"
     >
-      <Heading as="h1">
-        {blogPosts.title}
-      </Heading>
-      <Divider marginTop="5" />
+      <VStack alignItems="flex-start" spacing="20px">
+        <chakra.h2 fontSize="3xl" fontWeight="700">
+          Brandon's Blogs
+        </chakra.h2>
+        <LinkBox>
+          <Button
+            colorScheme={'blue'}
+            bg={'blue.400'}
+            rounded={'full'}
+            px={6}
+            _hover={{
+              bg: 'blue.500',
+            }}
+          >
+            <LinkOverlay
+              href={'https://brandonblankenstein.medium.com/'}
+              target={'_blank'}
+            >
+              <HStack>
+                <Text>
+                  Visit My
+                </Text>
+                <Center
+                  borderRadius={'full'}
+                  bg={'transparent'}
+                >
+                  <AiFillMediumCircle
+                    style={{ "height": '1.5rem', 'width': '100%' }}
+                  />
+                  <Text>
+                    edium
+                  </Text>
+                </Center>
+                <Text>
+                  Page
+                </Text>
+              </HStack>
+            </LinkOverlay>
+          </Button>
+        </LinkBox>
+      </VStack>
+      <Divider mt={12} mb={12} />
       <Flex
         wrap={'wrap'}
         justify={'space-between'}
+        align={'top'}
       >
         {blogs.map((blog) => (
           <BlogCard blog={blog} />
         ))}
       </Flex>
-    </Container>
+    </Box>
   )
 }
 

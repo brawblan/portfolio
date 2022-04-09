@@ -43,41 +43,31 @@ const Projects = () => {
       maxW={'7xl'}
       p="12"
     >
-      <Grid
-        templateColumns={{
-          base: 'repeat(1, 1fr)',
-          sm: 'repeat(2, 1fr)',
-          md: 'repeat(2, 1fr)',
-        }}
-        gap={4}>
-        <GridItem colSpan={1}>
-          <VStack alignItems="flex-start" spacing="20px">
-            <chakra.h2 fontSize="3xl" fontWeight="700">
-              Brandon's Projects
-            </chakra.h2>
-            <LinkBox>
-              <Button
-                colorScheme={'blue'}
-                bg={'blue.400'}
-                rounded={'full'}
-                px={6}
-                _hover={{
-                  bg: 'blue.500',
-                }}>
-                <LinkOverlay
-                  href={'https://github.com/brawblan'}
-                  target={'_blank'}
-                >
-                  <HStack>
-                    <Box>Visit my GitHub</Box>
-                    <Box><FaGithub /></Box>
-                  </HStack>
-                </LinkOverlay>
-              </Button>
-            </LinkBox>
-          </VStack>
-        </GridItem>
-      </Grid>
+      <VStack alignItems="flex-start" spacing="20px">
+        <chakra.h2 fontSize="3xl" fontWeight="700">
+          Brandon's Projects
+        </chakra.h2>
+        <LinkBox>
+          <Button
+            colorScheme={'blue'}
+            bg={'blue.400'}
+            rounded={'full'}
+            px={6}
+            _hover={{
+              bg: 'blue.500',
+            }}>
+            <LinkOverlay
+              href={'https://github.com/brawblan'}
+              target={'_blank'}
+            >
+              <HStack>
+                <Box>Visit my GitHub</Box>
+                <Box><FaGithub /></Box>
+              </HStack>
+            </LinkOverlay>
+          </Button>
+        </LinkBox>
+      </VStack>
       <Divider mt={12} mb={12} />
       <HStack
         wrap={'wrap'}

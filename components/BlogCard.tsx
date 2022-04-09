@@ -25,7 +25,7 @@ const BlogCard = (blog: { blog: BlogPost }) => {
     >
       <Box
         maxW={'330px'}
-        w={'100%'}
+        w={'full'}
         bg={useColorModeValue('white', 'blue.800')}
         boxShadow={'2xl'}
         rounded={'md'}
@@ -35,7 +35,8 @@ const BlogCard = (blog: { blog: BlogPost }) => {
           textAlign={'center'}
           p={6}
           color={useColorModeValue('gray.800', 'white')}
-          align={'center'}>
+          align={'center'}
+        >
           <Stack
             direction={'row'}
             align={'center'}

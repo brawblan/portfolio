@@ -3,7 +3,7 @@
   --fun-skills-width: 40vw;
   --slider-height: 15vh;
   --slider-elms-displayed: 6;
-  --slider-elms: 10;
+  --slider-elms: 6;
   --slider-elm-width: calc(var(--slider-width) / var(--slider-elms-displayed));
   --fun-skill-elm-width: calc(var(--fun-skills-width) / var(--slider-elms-displayed));
   --slider-duration-animation: calc(var(--slider-elms) * 3s);
@@ -24,6 +24,59 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.slider {
+  width: var(--slider-width);
+  height: var(--slider-height);
+  overflow: hidden;
+  margin: 2rem auto;
+  position: relative;
+}
+.slider::before,
+.slider::after {
+  position: absolute;
+  height: 100%;
+  width: 10rem;
+  top: 0;
+  content: '';
+  z-index: 1;
+}
+.slider::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg) 0%, transparent 100%);
+}
+.slider::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg) 0%, transparent 100%);
+}
+
+.topSlider,
+.bottomSlider {
+  display: flex;
+  list-style: none;
+  height: 100%;
+  animation: scrolling var(--slider-duration-animation) linear infinite;
+}
+.topSlider li,
+.bottomSlider li {
+  width: var(--slider-elm-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 100%;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-size: calc(var(--slider-height) * 3 / 4);
+}
+
+.bottomSlider span svg {
+  width: var(--fun-skill-elm-width);
+}
+
+@keyframes scrolling {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-1 * var(--slider-elm-width) * var(--slider-elms))); }
 }
 
 @media (max-width: 768px) {
